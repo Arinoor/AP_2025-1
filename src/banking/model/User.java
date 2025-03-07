@@ -1,11 +1,11 @@
 package banking.model;
 
-public class Customer {
+public class User {
         private String username;
         private String hashedPassword;
         private Account account;
 
-        public Customer(String username, String hashedPassword) {
+        public User(String username, String hashedPassword) {
                 this.username = username;
                 this.hashedPassword = hashedPassword;
                 this.account = new Account();

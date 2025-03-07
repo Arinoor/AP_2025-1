@@ -9,16 +9,16 @@ public class Transaction {
         private int id;
         private TransactionType type;
         private double amount;
-        private String sourceAccount;
-        private String destinationAccount;
+        private User source;
+        private User destination;
         private Date time;
 
-        public Transaction(TransactionType type, double amount, String sourceAccount, String destinationAccount) {
+        public Transaction(TransactionType type, double amount, User source, User destination) {
                 this.id = idCounter++;
                 this.type = type;
                 this.amount = amount;
-                this.sourceAccount = sourceAccount;
-                this.destinationAccount = destinationAccount;
+                this.source = source;
+                this.destination = destination;
                 this.time = new Date();
         }
 
@@ -34,12 +34,12 @@ public class Transaction {
                 return amount;
         }
 
-        public String getSourceAccount() {
-                return sourceAccount;
+        public User getSource() {
+                return source;
         }
 
-        public String getDestinationAccount() {
-                return destinationAccount;
+        public User getDestination() {
+                return destination;
         }
 
         public Date getTimestamp() {
@@ -49,6 +49,6 @@ public class Transaction {
         public String getDetails() {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 return id + ". " + type + ": " + (type == TransactionType.DEPOSIT ? "+" : "-") + amount +
-                        " | From: " + sourceAccount + " | To: " + destinationAccount + " | " + sdf.format(time);
+                        " | From: " + source + " | To: " + destination + " | " + sdf.format(time);
         }
 }
