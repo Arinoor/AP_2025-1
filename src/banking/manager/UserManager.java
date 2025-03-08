@@ -1,5 +1,6 @@
 package banking.manager;
 
+import banking.data.DataManager;
 import banking.model.User;
 import banking.security.SecurityModule;
 
@@ -31,6 +32,7 @@ public class UserManager {
                 if (users.containsKey(username)) {
                         throw new RuntimeException("User already exists.");
                 }
+                SecurityModule.getInstance().verifyUsername(username);
                 User user = new User(username, SecurityModule.getInstance().hashPassword(password));
                 users.put(username, user);
                 DataManager.getInstance().saveUsers(users);
@@ -50,6 +52,10 @@ public class UserManager {
 
         public User getByUsername(String username) {
                 return users.get(username);
+        }
+
+        public void setUsers() {
+
         }
 
         public static UserManager getInstance() {

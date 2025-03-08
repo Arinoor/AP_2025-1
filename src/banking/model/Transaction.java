@@ -1,24 +1,27 @@
 package banking.model;
 
+import banking.data.Stringifiable;
+import banking.manager.UserManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements Stringifiable {
         private static int idCounter = 1;
 
-        private int id;
-        private TransactionType type;
-        private double amount;
-        private User source;
-        private User destination;
-        private Date time;
+        private final int id;
+        private final TransactionType type;
+        private final double amount;
+        private final String sourceUsername;
+        private final String destinationUsername;
+        private final Date time;
 
-        public Transaction(TransactionType type, double amount, User source, User destination) {
+        public Transaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
                 this.id = idCounter++;
                 this.type = type;
                 this.amount = amount;
-                this.source = source;
-                this.destination = destination;
+                this.sourceUsername = sourceUsername;
+                this.destinationUsername = destinationUsername;
                 this.time = new Date();
         }
 
@@ -34,12 +37,20 @@ public class Transaction {
                 return amount;
         }
 
+        public String getSourceUsername() {
+                return sourceUsername;
+        }
+
+        public String getDestinationUsername() {
+                return destinationUsername;
+        }
+
         public User getSource() {
-                return source;
+                return UserManager.getInstance().getByUsername(sourceUsername);
         }
 
         public User getDestination() {
-                return destination;
+                return UserManager.getInstance().getByUsername(destinationUsername);
         }
 
         public Date getTimestamp() {
@@ -49,6 +60,23 @@ public class Transaction {
         public String getDetails() {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 return id + ". " + type + ": " + (type == TransactionType.DEPOSIT ? "+" : "-") + amount +
-                        " | From: " + source + " | To: " + destination + " | " + sdf.format(time);
+                        " | From: " + sourceUsername + " | To: " + destinationUsername + " | " + sdf.format(time);
         }
+
+        public String stringify() {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                StringBuilder str = new StringBuilder(
+                        "{" +
+                                "id:" + id + "," +
+                                "type:" + type.getString() + "," +
+                                "amount:" + amount + "," +
+                                "source:" + sourceUsername + "," +
+                                "destination:" + destinationUsername + "," +
+                                "time:" + sdf.format(time) +
+                        "}"
+                );
+                return String.valueOf(str);
+        }
+
+
 }

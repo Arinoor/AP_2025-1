@@ -1,6 +1,8 @@
 package banking.model;
 
-public class User {
+import banking.data.Stringifiable;
+
+public class User implements Stringifiable {
         private String username;
         private String hashedPassword;
         private Account account;
@@ -25,5 +27,9 @@ public class User {
 
         public void setAccount(Account account) {
                 this.account = account;
+        }
+
+        public String stringify() {
+                return "{" + username + ":" + "[" + hashedPassword + "," + account.stringify() + "]" + "}";
         }
 }

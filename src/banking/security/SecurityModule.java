@@ -2,6 +2,7 @@ package banking.security;
 
 public class SecurityModule {
         private static SecurityModule instance;
+        private static Character[] bannedCharacters = {',', '/', '\\'};
         private HashStrategy hashStrategy;
 
         public SecurityModule() {
@@ -14,6 +15,14 @@ public class SecurityModule {
 
         public boolean verifyPassword(String password, String hash) {
                 return hash.equals(hashStrategy.hash(password));
+        }
+
+        public void verifyUsername(String username) {
+                for(char bannedCharacter : bannedCharacters) {
+                        if(username.indexOf(bannedCharacter) != -1) {
+                                throw new RuntimeException("username should not contain " + bannedCharacter);
+                        }
+                }
         }
 
         public static SecurityModule getInstance() {

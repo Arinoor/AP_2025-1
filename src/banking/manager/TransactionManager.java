@@ -1,5 +1,6 @@
 package banking.manager;
 
+import banking.data.DataManager;
 import banking.model.Transaction;
 import banking.model.TransactionType;
 import banking.model.User;
@@ -13,11 +14,11 @@ public class TransactionManager {
         private List<Transaction> transactions;
 
         private  TransactionManager() {
-                transactions = DataManager.getInstance().loadTranactions();
+                transactions = DataManager.getInstance().loadTransactions();
         }
 
-        public Transaction recordTransaction(TransactionType type, double amount, User source, User destination) {
-                Transaction transaction = new Transaction(type, amount, source, destination);
+        public Transaction recordTransaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
+                Transaction transaction = new Transaction(type, amount, sourceUsername, destinationUsername);
                 transactions.add(transaction);
                 DataManager.getInstance().saveTransactions();
                 return transaction;

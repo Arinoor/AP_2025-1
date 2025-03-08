@@ -1,7 +1,17 @@
 package banking.model;
 
 public enum TransactionType {
-        DEPOSIT,
-        WITHDRAW,
-        TRANSFER,
+        DEPOSIT ("deposit"),
+        WITHDRAW ("withdraw"),
+        TRANSFER ("transfer");
+
+        private String string;
+
+        TransactionType(String string) {
+                this.string = string;
+        }
+
+        public String getString() {
+                return string;
+        }
 }

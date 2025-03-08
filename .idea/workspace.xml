@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8f36a8-f7cf-473c-9ba8-24a822b8416a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/banking/security/HashStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/banking/security/SHA256HashStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/banking/security/SecurityModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/banking/data/JSONParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/banking/data/Stringifiable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/manager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/data/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/manager/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/TransactionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/TransactionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/security/SecurityModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/security/SecurityModule.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -47,6 +53,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="banking.data" />
       <recent name="banking.model" />
     </key>
   </component>

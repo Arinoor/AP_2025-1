@@ -1,9 +1,11 @@
 package banking.model;
 
+import banking.data.Stringifiable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account {
+public class Account implements Stringifiable {
         private double balance;
         private List<Transaction> transactions;
 
@@ -32,5 +34,14 @@ public class Account {
 
         public void addTransaction(Transaction transaction) {
                 transactions.add(transaction);
+        }
+
+        public String stringify() {
+                StringBuilder str = new StringBuilder("{balance:" + balance + "," + "transactions:" + "[");
+                for(Transaction transaction : transactions) {
+                        str.append(transaction.stringify());
+                }
+                str.append("]" + "}");
+                return String.valueOf(str);
         }
 }
