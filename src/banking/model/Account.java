@@ -16,11 +16,10 @@ public class Account {
                 balance += amount;
         }
 
-        public boolean withdraw(double amount) {
+        public void withdraw(double amount) {
                 if(amount > balance)
-                        return false;
+                        throw new RuntimeException("Account balance is not enough");
                 balance -= amount;
-                return true;
         }
 
         public double getBalance() {

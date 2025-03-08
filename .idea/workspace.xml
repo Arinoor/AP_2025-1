@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8f36a8-f7cf-473c-9ba8-24a822b8416a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/banking/manager/AccountManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/banking/manager/AuthenticationManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/banking/manager/DataManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/banking/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/banking/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/banking/sdfsdf.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/manager/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/AccountManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/Account.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -16,7 +16,7 @@ public class TransactionManager {
                 transactions = new ArrayList<>();
         }
 
-        public Transaction recordTransaction(TransactionType type, double amount, String source, String destination) {
+        public Transaction recordTransaction(TransactionType type, double amount, User source, User destination) {
                 Transaction transaction = new Transaction(type, amount, source, destination);
                 transactions.add(transaction);
                 return transaction;
@@ -32,23 +32,23 @@ public class TransactionManager {
                 return history;
         }
 
-        public boolean undoTransaction(int id) {
+        public void undoTransaction(int id) {
                 Transaction transaction = getTransaction(id);
                 if(transaction == null) {
-                        return false;
+                        throw new RuntimeException("transaction id dose not exist");
                 }
-                boolean status = switch (transaction.getType()) {
+                if(transaction.getSource() != AuthenticationManager.getInstance().getCurrentUser()) {
+                        throw new RuntimeException("You don't have permission to undo this transaction");
+                }
+                switch (transaction.getType()) {
                         case DEPOSIT :
-                                yield AccountManager.getInstance().withdraw(transaction.getSource(), transaction.getAmount());
+                                AccountManager.getInstance().withdraw(transaction.getSource(), transaction.getAmount());
                         case WITHDRAW :
-                                yield AccountManager.getInstance().deposit(transaction.getSource(), transaction.getAmount());
+                                AccountManager.getInstance().deposit(transaction.getSource(), transaction.getAmount());
                         case TRANSFER :
-                                yield AccountManager.getInstance().transfer(transaction.getDestination(), transaction.getSource(), transaction.getAmount());
-                };
-                if(status) {
-                        transactions.remove(transaction);
+                                AccountManager.getInstance().transfer(transaction.getDestination(), transaction.getSource(), transaction.getAmount());
                 }
-                return status;
+                transactions.remove(transaction);
         }
 
         public Transaction getTransaction(int id) {
