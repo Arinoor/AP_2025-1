@@ -1,6 +1,7 @@
 package banking.manager;
 
 import banking.model.User;
+import banking.security.SecurityModule;
 
 import java.util.Map;
 
@@ -19,7 +20,9 @@ public class UserManager {
                         throw new RuntimeException("User does not exist.");
                 }
                 User user = users.get(username);
-                //TODO check hashed password with hashed password of user
+                if(!SecurityModule.getInstance().verifyPassword(password, user.getHashedPassword())) {
+                        throw new RuntimeException("Incorrect password.");
+                }
                 currentUser = user;
                 return user;
         }
@@ -28,8 +31,7 @@ public class UserManager {
                 if (users.containsKey(username)) {
                         throw new RuntimeException("User already exists.");
                 }
-                //TODO get hashed password
-                User user = new User(username, password);
+                User user = new User(username, SecurityModule.getInstance().hashPassword(password));
                 users.put(username, user);
                 DataManager.getInstance().saveUsers(users);
                 return user;
