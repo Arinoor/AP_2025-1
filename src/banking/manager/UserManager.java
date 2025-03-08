@@ -4,13 +4,13 @@ import banking.model.User;
 
 import java.util.Map;
 
-public class AuthenticationManager {
+public class UserManager {
 
-        private static AuthenticationManager instance;
+        private static UserManager instance;
         private User currentUser;
         private Map<String, User> users;
 
-        private AuthenticationManager() {
+        private UserManager() {
                 users = DataManager.getInstance().loadUsers();
         }
 
@@ -46,9 +46,13 @@ public class AuthenticationManager {
                 return currentUser;
         }
 
-        public static AuthenticationManager getInstance() {
+        public User getByUsername(String username) {
+                return users.get(username);
+        }
+
+        public static UserManager getInstance() {
                 if(instance == null)
-                        instance = new AuthenticationManager();
+                        instance = new UserManager();
                 return instance;
         }
 }

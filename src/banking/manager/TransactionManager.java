@@ -13,19 +13,20 @@ public class TransactionManager {
         private List<Transaction> transactions;
 
         private  TransactionManager() {
-                transactions = new ArrayList<>();
+                transactions = DataManager.getInstance().loadTranactions();
         }
 
         public Transaction recordTransaction(TransactionType type, double amount, User source, User destination) {
                 Transaction transaction = new Transaction(type, amount, source, destination);
                 transactions.add(transaction);
+                DataManager.getInstance().saveTransactions();
                 return transaction;
         }
 
         public List<Transaction> getHistory(User user) {
                 List<Transaction> history = new ArrayList<>();
                 for(Transaction transaction : user.getAccount().getTransactions()) {
-                        if(transaction.getSource().equals(user.getUsername())) {
+                        if(transaction.getSource().getUsername().equals(user.getUsername())) {
                                 history.add(transaction);
                         }
                 }
@@ -37,7 +38,7 @@ public class TransactionManager {
                 if(transaction == null) {
                         throw new RuntimeException("transaction id dose not exist");
                 }
-                if(transaction.getSource() != AuthenticationManager.getInstance().getCurrentUser()) {
+                if(transaction.getSource() != UserManager.getInstance().getCurrentUser()) {
                         throw new RuntimeException("You don't have permission to undo this transaction");
                 }
                 switch (transaction.getType()) {

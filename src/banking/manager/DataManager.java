@@ -1,7 +1,9 @@
 package banking.manager;
 
+import banking.model.Transaction;
 import banking.model.User;
 
+import java.util.List;
 import java.util.Map;
 
 public class DataManager {
@@ -25,5 +27,12 @@ public class DataManager {
         }
 
         public void saveUsers(Map<String, User> users) {
+        }
+
+        public List<Transaction> loadTranactions() {
+                return null;
+        }
+
+        public void saveTransactions() {
         }
 }
