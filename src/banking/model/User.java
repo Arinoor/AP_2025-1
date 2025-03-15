@@ -1,8 +1,12 @@
 package banking.model;
 
+import banking.data.Parser;
 import banking.data.Stringifiable;
 
-public class User implements Stringifiable {
+import java.util.HashMap;
+import java.util.Objects;
+
+public class User implements Stringifiable, Parser {
         private String username;
         private String hashedPassword;
         private Account account;
@@ -30,6 +34,16 @@ public class User implements Stringifiable {
         }
 
         public String stringify() {
-                return "{" + username + ":" + "[" + hashedPassword + "," + account.stringify() + "]" + "}";
+                return "{" +
+                        "username" + ":" + username + "," +
+                        "password" + ":" + hashedPassword + "," +
+                        "account" + ":" +  account.stringify() +
+                        "}";
+        }
+
+        public static User parse(HashMap<String, Object> data) {
+                User user = new User((String)data.get("username"), (String)data.get("password"));
+                user.setAccount(Account.parse((HashMap<String, Object>) data.get("account")));
+                return user;
         }
 }

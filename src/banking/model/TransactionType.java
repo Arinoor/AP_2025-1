@@ -11,7 +11,22 @@ public enum TransactionType {
                 this.string = string;
         }
 
-        public String getString() {
+        public static TransactionType parse(String type) {
+                switch (type) {
+                        case "deposit" -> {
+                                return DEPOSIT;
+                        }
+                        case "withdraw" -> {
+                                return WITHDRAW;
+                        }
+                        case "transfer" -> {
+                                return TRANSFER;
+                        }
+                }
+                return null;
+        }
+
+        public String stringify() {
                 return string;
         }
 }

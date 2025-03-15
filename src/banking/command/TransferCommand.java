@@ -27,7 +27,7 @@ public class TransferCommand implements Command {
                 User destinationUser = UserManager.getInstance().getByUsername(destinationUsername);
                 AccountManager.getInstance().transfer(currentUser, destinationUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
-                        TransactionType.TRANSFER, amount, currentUser, destinationUser);
+                        TransactionType.TRANSFER, amount, currentUser.getUsername(), destinationUser.getUsername());
                 System.out.println(
                         amount + " transferred to " + destinationUsername + ". Transaction ID: " + transaction.getTransactionId()
                 );

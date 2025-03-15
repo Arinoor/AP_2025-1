@@ -20,7 +20,7 @@ public class TransactionManager {
         public Transaction recordTransaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
                 Transaction transaction = new Transaction(type, amount, sourceUsername, destinationUsername);
                 transactions.add(transaction);
-                DataManager.getInstance().saveTransactions();
+                DataManager.getInstance().saveTransactions(transactions);
                 return transaction;
         }
 

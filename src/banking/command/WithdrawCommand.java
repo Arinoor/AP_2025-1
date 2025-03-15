@@ -26,7 +26,7 @@ public class WithdrawCommand implements Command {
                 }
                 AccountManager.getInstance().withdraw(currentUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
-                        TransactionType.WITHDRAW, amount, currentUser, null);
+                        TransactionType.WITHDRAW, amount, currentUser.getUsername(), null);
                 System.out.println(amount + " withdrawn.");
         }
 

@@ -4,12 +4,8 @@ import banking.manager.UserManager;
 import banking.model.Transaction;
 import banking.model.User;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class DataManager {
 
@@ -30,22 +26,62 @@ public class DataManager {
         }
 
         public Map<String, User> loadUsers() {
-                return null;
-        }
+                HashMap<String, User> users = new HashMap<>();
+                File file = new File(usersFile);
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String data = reader.readLine();
+                        ArrayList<HashMap<String, Object>> usersData = (ArrayList<HashMap<String, Object>>) jsonParser.parse(data);
+                        for(HashMap<String, Object> userData : usersData) {
+                                User user = User.parse(userData);
+                                users.put(user.getUsername(), user);
+                        }
+                        return users;
 
-        public void saveUsers(Map<String, User> users) {
-                String json = jsonParser.stringify(users);
-                try (PrintWriter writer = new PrintWriter(new FileWriter(usersFile))) {
-                        writer.write(json);
                 } catch (IOException e) {
                         e.printStackTrace();
+                }
+                return new HashMap<String, User>();
+        }
+
+        public void saveUsers(Collection<User> users) {
+                try {
+                        PrintWriter writer = new PrintWriter(new FileWriter(usersFile));
+                        writer.write("[");
+                        boolean first = true;
+                        for(User user : users) {
+                                if(!first)
+                                        writer.write(";");
+                                else
+                                        first = false;
+                                writer.write(user.stringify());
+                        }
+                        writer.write("]");
+                        writer.close();
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
                 }
         }
 
         public List<Transaction> loadTransactions() {
-                return null;
+                return new ArrayList<>();
         }
 
-        public void saveTransactions() {
+        public void saveTransactions(Collection<Transaction> transactions) {
+                try {
+                        PrintWriter writer = new PrintWriter(new FileWriter(transactionsFile));
+                        writer.write("[");
+                        boolean first = true;
+                        for(Transaction transaction : transactions) {
+                                if(!first)
+                                        writer.write(";");
+                                else
+                                        first = false;
+                                writer.write(transaction.stringify());
+                        }
+                        writer.write("]");
+                        writer.close();
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
+                }
         }
 }

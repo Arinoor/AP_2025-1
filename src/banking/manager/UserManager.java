@@ -35,7 +35,7 @@ public class UserManager {
                 SecurityModule.getInstance().verifyUsername(username);
                 User user = new User(username, SecurityModule.getInstance().hashPassword(password));
                 users.put(username, user);
-                DataManager.getInstance().saveUsers(users);
+                DataManager.getInstance().saveUsers(users.values());
                 return user;
         }
 
