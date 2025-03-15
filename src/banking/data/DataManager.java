@@ -1,5 +1,6 @@
 package banking.data;
 
+import banking.manager.TransactionManager;
 import banking.manager.UserManager;
 import banking.model.Transaction;
 import banking.model.User;
@@ -31,6 +32,9 @@ public class DataManager {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                         String data = reader.readLine();
                         ArrayList<HashMap<String, Object>> usersData = (ArrayList<HashMap<String, Object>>) jsonParser.parse(data);
+                        if(usersData == null) {
+                                return users;
+                        }
                         for(HashMap<String, Object> userData : usersData) {
                                 User user = User.parse(userData);
                                 users.put(user.getUsername(), user);
@@ -50,7 +54,7 @@ public class DataManager {
                         boolean first = true;
                         for(User user : users) {
                                 if(!first)
-                                        writer.write(";");
+                                        writer.write(",");
                                 else
                                         first = false;
                                 writer.write(user.stringify());
@@ -63,6 +67,22 @@ public class DataManager {
         }
 
         public List<Transaction> loadTransactions() {
+                ArrayList<Transaction> transactions = new ArrayList<>();
+                File file = new File(transactionsFile);
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String data = reader.readLine();
+                        ArrayList<HashMap<String, Object>> transactionsData = (ArrayList<HashMap<String, Object>>) jsonParser.parse(data);
+                        if(transactionsData == null)
+                                return transactions;
+                        for(HashMap<String, Object> transactionData : transactionsData) {
+                                Transaction transaction = Transaction.parse(transactionData);
+                                transactions.add(transaction);
+                        }
+                        return transactions;
+
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
                 return new ArrayList<>();
         }
 
@@ -73,7 +93,7 @@ public class DataManager {
                         boolean first = true;
                         for(Transaction transaction : transactions) {
                                 if(!first)
-                                        writer.write(";");
+                                        writer.write(",");
                                 else
                                         first = false;
                                 writer.write(transaction.stringify());
@@ -83,5 +103,10 @@ public class DataManager {
                 } catch (IOException e) {
                         throw new RuntimeException(e);
                 }
+        }
+
+        public void saveAll() {
+                saveUsers(UserManager.getInstance().getUsers());
+                saveTransactions(TransactionManager.getInstance().getTransactions());
         }
 }

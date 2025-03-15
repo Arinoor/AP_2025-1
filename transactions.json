@@ -1,1 +1,1 @@
-[{id:1,type:deposit,amount:100.0,source:Arian,destination:Ali,time:2025-03-15 11-37-44}]
+[{id:1,type:deposit,amount:1000000.0,source:Arian,destination:SYSTEM,time:2025-03-15 15-31-26},{id:2,type:transfer,amount:234.0,source:Arian,destination:Parsa,time:2025-03-15 15-31-35},{id:3,type:withdraw,amount:100.0,source:Parsa,destination:SYSTEM,time:2025-03-15 15-32-07}]

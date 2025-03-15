@@ -94,13 +94,15 @@ public class Transaction implements Stringifiable, Parser {
 
         public static List<Transaction> parse(ArrayList<HashMap<String, Object>> transactionsData) {
                 ArrayList<Transaction> transactions = new ArrayList<>();
+                if(transactionsData == null)
+                        return transactions;
                 for(HashMap<String, Object> transactionData : transactionsData) {
                         transactions.add(Transaction.parse(transactionData));
                 }
                 return transactions;
         }
 
-        private static Transaction parse(HashMap<String, Object> data) {
+        public static Transaction parse(HashMap<String, Object> data) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 try {
                         Transaction transaction = new Transaction(

@@ -4,6 +4,7 @@ import banking.data.DataManager;
 import banking.model.User;
 import banking.security.SecurityModule;
 
+import java.util.Collection;
 import java.util.Map;
 
 public class UserManager {
@@ -52,6 +53,10 @@ public class UserManager {
 
         public User getByUsername(String username) {
                 return users.get(username);
+        }
+
+        public Collection<User> getUsers () {
+                return users.values();
         }
 
         public void setUsers() {

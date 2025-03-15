@@ -29,6 +29,10 @@ public class User implements Stringifiable, Parser {
                 return account;
         }
 
+        public void addTransaction(Transaction transaction) {
+                account.addTransaction(transaction);
+        }
+
         public void setAccount(Account account) {
                 this.account = account;
         }

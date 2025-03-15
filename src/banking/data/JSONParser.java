@@ -8,7 +8,11 @@ import java.util.Map;
 public class JSONParser {
 
         public Object parse (String data) {
+                if(data == null)
+                        return null;
                 data = data.trim();
+                if(data.isEmpty())
+                        return null;
                 String dictionaryRegex = "^\\{.*\\}$";
                 String listRegex = "^\\[.*\\]$";
                 if(data.matches(dictionaryRegex)) {
@@ -24,6 +28,8 @@ public class JSONParser {
                 StringBuilder item = new StringBuilder();
                 int counter = 0;
                 HashMap<String, Object> map = new HashMap<>();
+                if(data.isEmpty())
+                        return map;
                 data += ",";
                 for(char c : data.toCharArray()) {
                         if(c == '{' || c == '[')
@@ -44,6 +50,8 @@ public class JSONParser {
 
         public ArrayList<Object> parseLIst(String data) {
                 ArrayList<Object> list = new ArrayList<>();
+                if(data.isEmpty())
+                        return list;
                 StringBuilder item = new StringBuilder();
                 int counter = 0;
                 data += ",";
@@ -53,7 +61,7 @@ public class JSONParser {
                         if(c == '}' || c == ']')
                                 counter --;
                         if(c == ',' && counter == 0) {
-                                list.add(item);
+                                list.add(parse(String.valueOf(item)));
                                 item = new StringBuilder();
                         }
                         else {

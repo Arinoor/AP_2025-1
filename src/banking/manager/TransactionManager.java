@@ -20,7 +20,8 @@ public class TransactionManager {
         public Transaction recordTransaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
                 Transaction transaction = new Transaction(type, amount, sourceUsername, destinationUsername);
                 transactions.add(transaction);
-                DataManager.getInstance().saveTransactions(transactions);
+                UserManager.getInstance().getByUsername(sourceUsername).addTransaction(transaction);
+                DataManager.getInstance().saveAll();
                 return transaction;
         }
 
@@ -50,6 +51,7 @@ public class TransactionManager {
                         case TRANSFER :
                                 AccountManager.getInstance().transfer(transaction.getDestination(), transaction.getSource(), transaction.getAmount());
                 }
+                DataManager.getInstance().saveAll();
                 transactions.remove(transaction);
         }
 
