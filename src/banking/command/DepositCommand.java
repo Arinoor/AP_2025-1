@@ -18,11 +18,10 @@ public class DepositCommand implements Command {
 
         @Override
         public void execute() {
-                User currentUser = UserManager.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                        System.out.println("Please login first.");
-                        return;
+                if (!UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please login first.");
                 }
+                User currentUser = UserManager.getInstance().getCurrentUser();
                 AccountManager.getInstance().deposit(currentUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
                         TransactionType.DEPOSIT, amount, currentUser.getUsername(), "SYSTEM");

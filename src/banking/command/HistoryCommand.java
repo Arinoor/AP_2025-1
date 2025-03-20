@@ -14,12 +14,11 @@ public class HistoryCommand implements Command {
 
         @Override
         public void execute() {
-                User currentUser = UserManager.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                        System.out.println("Please login first.");
-                        return;
+                if (!UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please login first.");
                 }
-                List<Transaction> history = TransactionManager.getInstance().getHistory(currentUser);
+                User currentUser = UserManager.getInstance().getCurrentUser();
+                List<Transaction> history = currentUser.getAccount().getTransactions();
                 if (history.isEmpty()) {
                         System.out.println("No transactions found.");
                 } else {

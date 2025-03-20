@@ -5,7 +5,7 @@ public enum TransactionType {
         WITHDRAW ("withdraw"),
         TRANSFER ("transfer");
 
-        private String string;
+        private final String string;
 
         TransactionType(String string) {
                 this.string = string;

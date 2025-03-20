@@ -20,7 +20,7 @@ public class Main {
                         CommandProcessor.getInstance().process(commandLine);
                         if(commandLine.equals("exist")) break;
                         try {
-                                TimeUnit.MILLISECONDS.sleep(400);
+                                TimeUnit.MILLISECONDS.sleep(100);
                         } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                         }

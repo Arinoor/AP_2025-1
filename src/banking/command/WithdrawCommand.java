@@ -19,14 +19,13 @@ public class WithdrawCommand implements Command {
 
         @Override
         public void execute() {
-                User currentUser = UserManager.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                        System.out.println("Please login first.");
-                        return;
+                if (!UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please login first.");
                 }
+                User currentUser = UserManager.getInstance().getCurrentUser();
                 AccountManager.getInstance().withdraw(currentUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
-                        TransactionType.WITHDRAW, amount, currentUser.getUsername(), "SYSTEM");
+                        TransactionType.WITHDRAW, amount,  currentUser.getUsername(), "SYSTEM");
                 System.out.println(amount + " withdrawn.");
         }
 

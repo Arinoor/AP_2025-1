@@ -4,11 +4,10 @@ import banking.data.Parser;
 import banking.data.Stringifiable;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class User implements Stringifiable, Parser {
-        private String username;
-        private String hashedPassword;
+        private final String username;
+        private final String hashedPassword;
         private Account account;
 
         public User(String username, String hashedPassword) {

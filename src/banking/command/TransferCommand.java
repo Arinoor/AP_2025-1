@@ -19,12 +19,14 @@ public class TransferCommand implements Command {
 
         @Override
         public void execute() {
-                User currentUser = UserManager.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                        System.out.println("Please login first.");
-                        return;
+                if (!UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please login first.");
                 }
+                User currentUser = UserManager.getInstance().getCurrentUser();
                 User destinationUser = UserManager.getInstance().getByUsername(destinationUsername);
+                if(destinationUser == null) {
+                        throw new RuntimeException("destination username does not exist");
+                }
                 AccountManager.getInstance().transfer(currentUser, destinationUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
                         TransactionType.TRANSFER, amount, currentUser.getUsername(), destinationUser.getUsername());

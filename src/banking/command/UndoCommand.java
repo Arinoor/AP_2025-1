@@ -14,10 +14,8 @@ public class UndoCommand implements Command {
 
         @Override
         public void execute() {
-                User currentUser = UserManager.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                        System.out.println("Please login first.");
-                        return;
+                if (!UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please login first.");
                 }
                 TransactionManager.getInstance().undoTransaction(id);
                 System.out.println("Transaction with id " + id + " undone");

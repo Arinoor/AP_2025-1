@@ -2,7 +2,7 @@ package banking.security;
 
 public class SecurityModule {
         private static SecurityModule instance;
-        private static Character[] bannedCharacters = {',', '/', '\\'};
+        private static final Character[] bannedCharacters = {',', '/', '\\'};
         private HashStrategy hashStrategy;
 
         public SecurityModule() {

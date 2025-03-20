@@ -11,10 +11,16 @@ import java.util.List;
 public class TransactionManager {
 
         private static TransactionManager instance;
-        private List<Transaction> transactions;
+        private int idCounter;
+        private final List<Transaction> transactions;
 
         private  TransactionManager() {
                 transactions = DataManager.getInstance().loadTransactions();
+                idCounter = transactions.size() + 1;
+                for(Transaction transaction : transactions) {
+                        User user = UserManager.getInstance().getByUsername(transaction.getSource());
+                        user.getAccount().addTransaction(transaction);
+                }
         }
 
         public Transaction recordTransaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
@@ -25,34 +31,32 @@ public class TransactionManager {
                 return transaction;
         }
 
-        public List<Transaction> getHistory(User user) {
-                List<Transaction> history = new ArrayList<>();
-                for(Transaction transaction : user.getAccount().getTransactions()) {
-                        if(transaction.getSource().getUsername().equals(user.getUsername())) {
-                                history.add(transaction);
-                        }
-                }
-                return history;
-        }
-
         public void undoTransaction(int id) {
                 Transaction transaction = getTransaction(id);
                 if(transaction == null) {
                         throw new RuntimeException("transaction id dose not exist");
                 }
-                if(transaction.getSource() != UserManager.getInstance().getCurrentUser()) {
+                User user = UserManager.getInstance().getByUsername(transaction.getSource());
+                if(user != UserManager.getInstance().getCurrentUser()) {
                         throw new RuntimeException("You don't have permission to undo this transaction");
                 }
                 switch (transaction.getType()) {
                         case DEPOSIT :
-                                AccountManager.getInstance().withdraw(transaction.getSource(), transaction.getAmount());
+                                AccountManager.getInstance().withdraw(user, transaction.getAmount());
+                                break;
                         case WITHDRAW :
-                                AccountManager.getInstance().deposit(transaction.getSource(), transaction.getAmount());
+                                AccountManager.getInstance().deposit(user, transaction.getAmount());
+                                break;
                         case TRANSFER :
-                                AccountManager.getInstance().transfer(transaction.getDestination(), transaction.getSource(), transaction.getAmount());
+                                AccountManager.getInstance().transfer(
+                                        UserManager.getInstance().getByUsername(transaction.getDestination()),
+                                        user,
+                                        transaction.getAmount()
+                                );
+                                break;
                 }
-                DataManager.getInstance().saveAll();
                 transactions.remove(transaction);
+                DataManager.getInstance().saveAll();
         }
 
         public Transaction getTransaction(int id) {
@@ -72,5 +76,9 @@ public class TransactionManager {
 
         public List<Transaction> getTransactions() {
                 return transactions;
+        }
+
+        public int getIncreaseIdCounter() {
+                return idCounter ++;
         }
 }

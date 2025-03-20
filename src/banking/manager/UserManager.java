@@ -11,7 +11,7 @@ public class UserManager {
 
         private static UserManager instance;
         private User currentUser;
-        private Map<String, User> users;
+        private final Map<String, User> users;
 
         private UserManager() {
                 users = DataManager.getInstance().loadUsers();
@@ -47,6 +47,10 @@ public class UserManager {
                 currentUser = null;
         }
 
+        public boolean isLoggedIn() {
+                return currentUser != null;
+        }
+
         public User getCurrentUser() {
                 return currentUser;
         }
@@ -59,9 +63,6 @@ public class UserManager {
                 return users.values();
         }
 
-        public void setUsers() {
-
-        }
 
         public static UserManager getInstance() {
                 if(instance == null)

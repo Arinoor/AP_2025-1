@@ -14,6 +14,9 @@ public class LoginCommand implements Command {
 
         @Override
         public void execute() {
+                if(UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please logout first.");
+                }
                 User loggedInUser = UserManager.getInstance().login(username, password);
                 if (loggedInUser != null) {
                         System.out.println("Logged in as '" + username + "'.");

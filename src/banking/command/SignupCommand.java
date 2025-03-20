@@ -14,6 +14,9 @@ public class SignupCommand implements Command{
 
         @Override
         public void execute() {
+                if(UserManager.getInstance().isLoggedIn()) {
+                        throw new RuntimeException("Please logout first.");
+                }
                 User signedupUser = UserManager.getInstance().signup(username, password);
                 if (signedupUser != null) {
                         System.out.println("Account '" + username + "' created.");;

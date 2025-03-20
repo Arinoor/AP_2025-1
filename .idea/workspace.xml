@@ -5,16 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8f36a8-f7cf-473c-9ba8-24a822b8416a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/banking/UI/CLIInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/banking/command/CommandProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/banking/data/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/data/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/banking/data/JSONParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/data/JSONParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/BalanceCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/BalanceCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/DepositCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/DepositCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/HistoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/HistoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/LogoutCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/SignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/SignupCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/TransferCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/TransferCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/UndoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/UndoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/command/WithdrawCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/command/WithdrawCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/TransactionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/manager/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/manager/UserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/model/TransactionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/TransactionType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/banking/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking/security/SecurityModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/banking/security/SecurityModule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/transactions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/users.json" afterDir="false" />
     </list>

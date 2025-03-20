@@ -2,7 +2,7 @@ package banking.model;
 
 import banking.data.Parser;
 import banking.data.Stringifiable;
-import banking.manager.UserManager;
+import banking.manager.TransactionManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,30 +12,29 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Transaction implements Stringifiable, Parser {
-        private static int idCounter = 1;
 
         private final int id;
         private final TransactionType type;
         private final double amount;
-        private final String sourceUsername;
-        private final String destinationUsername;
+        private final String source;
+        private final String destination;
         private final Date time;
 
-        public Transaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
-                this.id = idCounter++;
+        public Transaction(TransactionType type, double amount, String source, String destination) {
+                this.id = TransactionManager.getInstance().getIncreaseIdCounter();
                 this.type = type;
                 this.amount = amount;
-                this.sourceUsername = sourceUsername;
-                this.destinationUsername = destinationUsername;
+                this.source = source;
+                this.destination = destination;
                 this.time = new Date();
         }
 
-        public Transaction(int id, TransactionType type, double amount, String sourceUsername, String destinationUsername, Date time) {
+        public Transaction(int id, TransactionType type, double amount, String source, String destination, Date time) {
                 this.id = id;
                 this.type = type;
                 this.amount = amount;
-                this.sourceUsername = sourceUsername;
-                this.destinationUsername = destinationUsername;
+                this.source = source;
+                this.destination = destination;
                 this.time = time;
         }
 
@@ -51,20 +50,12 @@ public class Transaction implements Stringifiable, Parser {
                 return amount;
         }
 
-        public String getSourceUsername() {
-                return sourceUsername;
+        public String getSource() {
+                return source;
         }
 
-        public String getDestinationUsername() {
-                return destinationUsername;
-        }
-
-        public User getSource() {
-                return UserManager.getInstance().getByUsername(sourceUsername);
-        }
-
-        public User getDestination() {
-                return UserManager.getInstance().getByUsername(destinationUsername);
+        public String getDestination() {
+                return destination;
         }
 
         public Date getTimestamp() {
@@ -73,23 +64,24 @@ public class Transaction implements Stringifiable, Parser {
 
         public String getDetails() {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                return id + ". " + type + ": " + (type == TransactionType.DEPOSIT ? "+" : "-") + amount +
-                        " | From: " + sourceUsername + " | To: " + destinationUsername + " | " + sdf.format(time);
+                return id + ". " +
+                        type + ": " + (type == TransactionType.DEPOSIT ? "+" : "-") +
+                        amount +
+                        " | From: " + (type == TransactionType.WITHDRAW ? "SYSTEM" : source) +
+                        " | To: " + (type == TransactionType.WITHDRAW ? source : destination) +
+                        " | " + sdf.format(time);
         }
 
         public String stringify() {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-                StringBuilder str = new StringBuilder(
-                        "{" +
-                                "id:" + id + "," +
-                                "type:" + type.stringify() + "," +
-                                "amount:" + amount + "," +
-                                "source:" + sourceUsername + "," +
-                                "destination:" + destinationUsername + "," +
-                                "time:" + sdf.format(time) +
-                        "}"
-                );
-                return String.valueOf(str);
+                return "{" +
+                        "id:" + id + "," +
+                        "type:" + type.stringify() + "," +
+                        "amount:" + amount + "," +
+                        "source:" + source + "," +
+                        "destination:" + destination + "," +
+                        "time:" + sdf.format(time) +
+                        "}";
         }
 
         public static List<Transaction> parse(ArrayList<HashMap<String, Object>> transactionsData) {
@@ -105,7 +97,7 @@ public class Transaction implements Stringifiable, Parser {
         public static Transaction parse(HashMap<String, Object> data) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 try {
-                        Transaction transaction = new Transaction(
+                        return new Transaction(
                                 Integer.parseInt( (String)data.get("id")),
                                 TransactionType.parse((String) data.get("type")),
                                 Double.parseDouble((String) data.get("amount")),
@@ -113,7 +105,6 @@ public class Transaction implements Stringifiable, Parser {
                                 (String) data.get("destination"),
                                 sdf.parse((String) data.get("time"))
                         );
-                        return transaction;
                 } catch (ParseException e) {
                         throw new RuntimeException(e);
                 }
