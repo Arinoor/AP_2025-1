@@ -49,7 +49,12 @@ public class Account implements Stringifiable, Parser {
 
         public String stringify() {
                 StringBuilder str = new StringBuilder("{balance:" + balance + "," + "transactions:" + "[");
+                boolean first = true;
                 for(Transaction transaction : transactions) {
+                        if(!first)
+                                str.append(",");
+                        else
+                                first = false;
                         str.append(transaction.stringify());
                 }
                 str.append("]" + "}");
@@ -58,7 +63,6 @@ public class Account implements Stringifiable, Parser {
 
         public static Account parse(HashMap<String, Object> data) {
                 Account account = new Account(Double.parseDouble((String) data.get("balance")));
-                account.setTransactions(Transaction.parse((ArrayList<HashMap<String, Object>>) data.get("transactions")));
                 return account;
         }
 }

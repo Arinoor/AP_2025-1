@@ -24,7 +24,11 @@ public class DepositCommand implements Command {
                 User currentUser = UserManager.getInstance().getCurrentUser();
                 AccountManager.getInstance().deposit(currentUser, amount);
                 transaction = TransactionManager.getInstance().recordTransaction(
-                        TransactionType.DEPOSIT, amount, currentUser.getUsername(), "SYSTEM");
+                        TransactionType.DEPOSIT,
+                        amount,
+                        currentUser.getUsername(),
+                        currentUser.getUsername(),
+                        "SYSTEM");
                 System.out.println(amount + " deposited.");
         }
 

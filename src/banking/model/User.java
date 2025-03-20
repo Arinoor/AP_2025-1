@@ -46,6 +46,7 @@ public class User implements Stringifiable, Parser {
 
         public static User parse(HashMap<String, Object> data) {
                 User user = new User((String)data.get("username"), (String)data.get("password"));
+                //System.out.println(user.getUsername());
                 user.setAccount(Account.parse((HashMap<String, Object>) data.get("account")));
                 return user;
         }

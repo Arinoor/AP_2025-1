@@ -62,6 +62,7 @@ public class JSONParser {
                                 counter --;
                         if(c == ',' && counter == 0) {
                                 list.add(parse(String.valueOf(item)));
+                                //System.out.println("THIS IS ERROR : " + item);
                                 item = new StringBuilder();
                         }
                         else {

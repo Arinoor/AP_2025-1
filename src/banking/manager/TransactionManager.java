@@ -16,17 +16,22 @@ public class TransactionManager {
 
         private  TransactionManager() {
                 transactions = DataManager.getInstance().loadTransactions();
-                idCounter = transactions.size() + 1;
                 for(Transaction transaction : transactions) {
-                        User user = UserManager.getInstance().getByUsername(transaction.getSource());
-                        user.getAccount().addTransaction(transaction);
+                        UserManager.getInstance().getByUsername(transaction.getAuthor()).addTransaction(transaction);
+                        if(transaction.getType() == TransactionType.TRANSFER) {
+                                UserManager.getInstance().getByUsername(transaction.getDestination()).addTransaction(transaction);
+                        }
                 }
+                idCounter = transactions.size() + 1;
         }
 
-        public Transaction recordTransaction(TransactionType type, double amount, String sourceUsername, String destinationUsername) {
-                Transaction transaction = new Transaction(type, amount, sourceUsername, destinationUsername);
+        public Transaction recordTransaction(TransactionType type, double amount, String author, String source, String destination) {
+                Transaction transaction = new Transaction(type, amount, author, source, destination);
                 transactions.add(transaction);
-                UserManager.getInstance().getByUsername(sourceUsername).addTransaction(transaction);
+                UserManager.getInstance().getByUsername(author).addTransaction(transaction);
+                if(type == TransactionType.TRANSFER) {
+                        UserManager.getInstance().getByUsername(destination).addTransaction(transaction);
+                }
                 DataManager.getInstance().saveAll();
                 return transaction;
         }
@@ -55,7 +60,7 @@ public class TransactionManager {
                                 );
                                 break;
                 }
-                transactions.remove(transaction);
+                transaction.undo();
                 DataManager.getInstance().saveAll();
         }
 

@@ -31,7 +31,7 @@ public class CLIInterface {
                 System.out.println("  history");
                 System.out.println("  deposit <amount>");
                 System.out.println("  withdraw <amount>");
-                System.out.println("  transfer <destinationAccountNumber> <amount>");
+                System.out.println("  transfer <destinationUsername> <amount>");
                 System.out.println("  undo <transactionID>");
                 System.out.println("  logout");
         }
